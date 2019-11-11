@@ -129,19 +129,19 @@ void MainWindow::stripData(QString htmlData)
             col = 0;
             ui->tableWidget->insertRow(ui->tableWidget->rowCount());
         }
-
     }
 
     QString outputString;
+    int arrayLength = numberStringList.indexOf("TBD") < numberStringList.length() ? numberStringList.indexOf("TBD"): numberStringList.length();
+
     if(parsedStringList[parsedStringList.length()-1].trimmed() != "TBD")
     { // the season did not start yet, we dont calculate end date
 
-        outputString.append("Season end date with the addition of 90 days: " + dateVector[dateVector.length()-1].addDays(90).toString());
-
-        qDebug() << " this :    " << dateVector[dateVector.length()-1].toString();
+        outputString.append("Season end date with the addition of 90 days: " + dateVector[arrayLength-1].addDays(90).toString());
 
     }else
     {
+
         outputString.append("Season did not start yet!");
 
         // calculate estimated start date
@@ -150,7 +150,6 @@ void MainWindow::stripData(QString htmlData)
     }
     ui->textEdit->setText(outputString);
     ui->pushButton->setEnabled(true);
-
 }
 
 QDate MainWindow::calculateSeasonStartDate(QVector<QDate> dateVector){
